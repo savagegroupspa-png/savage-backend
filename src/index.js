@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const { connectDB } = require('./config/db');
+// Importamos con el nombre exacto y usando llaves
+const { conectarDB } = require('./config/db');
 const { swaggerDocs } = require('./config/swagger');
 
 // Importar rutas
@@ -9,14 +10,14 @@ const fanRoutes = require('./routes/fanRoutes');
 
 const app = express();
 
-// Conectar a la base de datos
-connectDB();
+// Conectar a la base de datos - Usando el nombre correcto
+conectarDB();
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-// --- REDIRECCIÓN A SWAGGER (LO NUEVO) ---
+// Redirección a Swagger
 app.get('/', (req, res) => {
   res.redirect('/api-docs');
 });
