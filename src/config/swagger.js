@@ -1,4 +1,5 @@
-import swaggerJSDoc from 'swagger-jsdoc';
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const options = {
     definition: {
@@ -8,7 +9,6 @@ const options = {
             version: '1.0.0',
             description: 'Documentación oficial de la API Savage Group',
         },
-        // Aquí agregamos el servidor de Render y mantenemos el local
         servers: [
             { 
                 url: 'https://savage-backend.onrender.com',
@@ -20,7 +20,6 @@ const options = {
             }
         ],
         paths: {
-            // --- SECCIÓN DISTRIBUIDORES (B2B) ---
             '/api/distribuidores': {
                 get: {
                     summary: 'Obtiene todos los distribuidores',
@@ -49,7 +48,6 @@ const options = {
                     responses: { '201': { description: 'Creado' } }
                 }
             },
-            // --- SECCIÓN FANS (B2C) ---
             '/api/fans': {
                 get: {
                     summary: 'Obtiene la lista de fans registrados',
@@ -81,4 +79,12 @@ const options = {
     apis: [], 
 };
 
-export const swaggerSpec = swaggerJSDoc(options);
+const swaggerSpec = swaggerJSDoc(options);
+
+// ESTA FUNCIÓN ES LA QUE BUSCA TU index.js
+const swaggerDocs = (app) => {
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+};
+
+// EXPORTACIÓN CORRECTA PARA require
+module.exports = { swaggerDocs };
