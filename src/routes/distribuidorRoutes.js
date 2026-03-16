@@ -1,7 +1,6 @@
-import { Router } from 'express';
-import { DistribuidorController } from '../controllers/distribuidorController.js';
-
-const router = Router();
+const express = require('express');
+const router = express.Router();
+const { DistribuidorController } = require('../controllers/distribuidorController.js');
 
 // Ruta para ver la lista (GET)
 router.get('/', DistribuidorController.listar);
@@ -9,4 +8,4 @@ router.get('/', DistribuidorController.listar);
 // Tu ruta de registro de siempre (POST)
 router.post('/', DistribuidorController.registrar);
 
-export default router;
+module.exports = router;

@@ -1,10 +1,8 @@
-import { Router } from 'express';
-import { FanController } from '../controllers/fanController.js'; // Con las llaves { }
+const express = require('express');
+const router = express.Router();
+const { FanController } = require('../controllers/fanController.js'); 
 
-const router = Router();
-
-// Aquí es donde daba el error si FanController.listar no existía
 router.get('/', FanController.listar); 
 router.post('/', FanController.registrar);
 
-export default router;
+module.exports = router;
