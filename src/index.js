@@ -27,6 +27,7 @@ app.use('/api/distribuidores', distribuidorRoutes);
 app.use('/api/fans', fanRoutes);
 
 // Configuración de Swagger
+conectarDB()
 swaggerDocs(app);
 
 const PORT = process.env.PORT || 3000;
