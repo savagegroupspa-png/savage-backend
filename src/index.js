@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-// Importamos con el nombre exacto y usando llaves
 const { conectarDB } = require('./config/db');
 const { swaggerDocs } = require('./config/swagger');
 
@@ -10,28 +9,27 @@ const fanRoutes = require('./routes/fanRoutes');
 
 const app = express();
 
-// Conectar a la base de datos - Usando el nombre correcto
+// 1. Conectar a la base de datos (Solo una vez)
 conectarDB();
 
-// Middlewares
+// 2. Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Redirección a Swagger
+// 3. Rutas y Redirección
 app.get('/', (req, res) => {
   res.redirect('/api-docs');
 });
 
-// Rutas de la API
 app.use('/api/distribuidores', distribuidorRoutes);
 app.use('/api/fans', fanRoutes);
 
-// Configuración de Swagger
-conectarDB()
+// 4. Configuración de Swagger
 swaggerDocs(app);
 
+// 5. Servidor (Configurado para Render)
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Servidor Savage corriendo en puerto ${PORT}`);
-  console.log(`📄 Documentación disponible en http://localhost:${PORT}/api-docs`);
+  console.log(`📄 Documentación disponible en /api-docs`);
 });
