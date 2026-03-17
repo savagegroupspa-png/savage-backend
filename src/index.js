@@ -1,35 +1,43 @@
 const express = require('express');
 const cors = require('cors');
-const { conectarDB } = require('./config/db');
-const { swaggerDocs } = require('./config/swagger');
+const dotenv = require('dotenv');
+const conectarDB = require('./config/db.js');
+const fanRoutes = require('./routes/fanRoutes.js');
+const distribuidorRoutes = require('./routes/distribuidorRoutes.js');
+const { swaggerUi, swaggerSpec } = require('./config/swagger.js');
 
-// Importar rutas
-const distribuidorRoutes = require('./routes/distribuidorRoutes');
-const fanRoutes = require('./routes/fanRoutes');
+// Configuración de variables de entorno
+dotenv.config();
 
 const app = express();
 
-// 1. Conectar a la base de datos (Solo una vez)
-conectarDB();
+// --- CONFIGURACIÓN DE CORS (SOLUCIÓN AL ERROR) ---
+app.use(cors({
+  origin: '*', // Permite peticiones desde cualquier lugar (Astro, Swagger, Localhost)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
-// 2. Middlewares
-app.use(cors());
+// Middleware para leer JSON
 app.use(express.json());
 
-// 3. Rutas y Redirección
+// Conexión a la base de datos
+conectarDB();
+
+// Rutas de la API
+app.use('/api/fans', fanRoutes);
+app.use('/api/distribuidores', distribuidorRoutes);
+
+// Configuración de Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Ruta de prueba para verificar que el backend está vivo
 app.get('/', (req, res) => {
-  res.redirect('/api-docs');
+  res.send('🚀 Servidor Savage operando al 100%');
 });
 
-app.use('/api/distribuidores', distribuidorRoutes);
-app.use('/api/fans', fanRoutes);
-
-// 4. Configuración de Swagger
-swaggerDocs(app);
-
-// 5. Servidor (Configurado para Render)
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Servidor Savage corriendo en puerto ${PORT}`);
-  console.log(`📄 Documentación disponible en /api-docs`);
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor Savage corriendo en el puerto ${PORT}`);
+  console.log(`📖 Documentación disponible en http://localhost:${PORT}/api-docs`);
 });
