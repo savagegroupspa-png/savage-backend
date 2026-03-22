@@ -4,11 +4,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    family: 4, // <-- ¡ESTA ES LA LÍNEA MÁGICA! Fuerza la red IPv4 para evitar el error ENETUNREACH
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
+        user: process.env.EMAIL_USER, // Asegúrate de que los nombres de estas variables...
+        pass: process.env.EMAIL_PASS  // ...coincidan con los que usó tu compañero.
+    }
 });
 
 const INSTAGRAM_URL = "https://www.instagram.com/savageproyect/";
