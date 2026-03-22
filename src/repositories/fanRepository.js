@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose =  require('mongoose');
 
 const fanSchema = new mongoose.Schema({
     nombre: { type: String, required: true },
@@ -8,7 +8,7 @@ const fanSchema = new mongoose.Schema({
 
 const Fan = mongoose.model('Fan', fanSchema);
 
-export const fanRepository = {
+const fanRepository = {
     async guardar(datos) {
         const nuevoFan = new Fan(datos);
         return await nuevoFan.save();
@@ -17,3 +17,6 @@ export const fanRepository = {
         return await Fan.find().sort({ fecha: -1 });
     }
 };
+
+// Exportación en formato CommonJS
+module.exports = { fanRepository };
