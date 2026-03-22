@@ -1,7 +1,7 @@
-import { fanRepository } from '../repositories/fanRepository.js';
-import { enviarCorreoBienvenida } from '../utils/mailer.js';
+const { fanRepository } = require('../repositories/fanRepository.js');
+const { enviarCorreoBienvenida } = require('../utils/mailer.js'); // <-- Cambiado a require
 
-export const FanController = {
+const FanController = { // <-- Se quitó el export
     // 1. Función para registrar (POST)
     async registrar(req, res) {
         try {
@@ -24,3 +24,6 @@ export const FanController = {
         }
     }
 };
+
+// Exportación al estilo CommonJS
+module.exports = { FanController };
