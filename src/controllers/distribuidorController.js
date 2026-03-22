@@ -1,7 +1,7 @@
-import { distribuidorRepository } from '../repositories/distribuidorRepository.js';
-import { enviarDossierComercial } from '../utils/mailer.js'; 
+const { distribuidorRepository } = require('../repositories/distribuidorRepository.js');
+const { enviarDossierComercial } = require('../utils/mailer.js'); 
 
-export const DistribuidorController = {
+const DistribuidorController = {
     // 1. Función para registrar y enviar mail
     async registrar(req, res) {
         try {
@@ -32,3 +32,6 @@ export const DistribuidorController = {
         }
     }
 };
+
+// Exportamos en formato CommonJS
+module.exports = { DistribuidorController };
