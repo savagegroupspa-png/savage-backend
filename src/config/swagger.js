@@ -81,10 +81,5 @@ const options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-// ESTA FUNCIÓN ES LA QUE BUSCA TU index.js
-const swaggerDocs = (app) => {
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-};
-
-// EXPORTACIÓN CORRECTA PARA require
-module.exports = { swaggerDocs };
+// EXPORTACIÓN CORRECTA: Le entregamos a index.js exactamente lo que pide
+module.exports = { swaggerUi, swaggerSpec };
