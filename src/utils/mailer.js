@@ -1,6 +1,4 @@
 import dotenv from 'dotenv';
-import fetch from 'node-fetch'; // Si tu Node es antiguo, si es moderno (v18+) no hace falta instalarlo
-
 dotenv.config();
 
 const BREVO_API_URL = "https://api.brevo.com/v3/smtp/email";
