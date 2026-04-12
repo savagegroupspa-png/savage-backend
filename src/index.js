@@ -8,7 +8,9 @@ const { swaggerUi, swaggerSpec } = require('./config/swagger.js');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://drinkssavage.com'
+}));
 app.use(express.json());
 
 // Conectar a la base de datos
