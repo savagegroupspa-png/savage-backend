@@ -9,7 +9,7 @@ const { swaggerUi, swaggerSpec } = require('./config/swagger.js');
 const app = express();
 
 app.use(cors({
-  origin: 'https://drinkssavage.com'
+  origin: ['https://drinkssavage.com', 'https://www.drinkssavage.com']
 }));
 app.use(express.json());
 
