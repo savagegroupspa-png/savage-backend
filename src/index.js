@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+dotenv.config();
 const conectarDB = require('./config/db.js'); // <-- ¡AQUÍ ESTÁ LA CORRECCIÓN!
 const { swaggerUi, swaggerSpec } = require('./config/swagger.js');
 
-dotenv.config();
+
 const app = express();
 
 app.use(cors());
